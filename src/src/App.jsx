@@ -422,7 +422,6 @@ function decodeSkodaVin(vin) {
     candidates: [],
   };
 }
-}
 
 function StatCard({ title, value }) {
   return (
@@ -742,6 +741,19 @@ export default function App() {
                     <InfoCard label="Kod menjača" value={decoded.gearboxCode} />
                     <InfoCard label="Ulje menjača" value={decoded.menjac.includes("DSG") ? "6 L" : "N/A"} />
                   </div>
+
+                  {decoded.candidates && decoded.candidates.length > 0 ? (
+                    <div style={styles.contentCardInner}>
+                      <div style={styles.candidateTitle}>Moguće varijante vozila</div>
+                      <div style={styles.candidateList}>
+                        {decoded.candidates.map((candidate) => (
+                          <div key={candidate} style={styles.candidateItem}>
+                            {candidate}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </>
               )}
             </div>
@@ -1034,6 +1046,27 @@ const styles = {
     padding: "14px 10px",
     borderBottom: "1px solid #f1f5f9",
     textAlign: "right",
+    fontSize: 16,
+  },
+  contentCardInner: {
+    marginTop: 18,
+    paddingTop: 18,
+    borderTop: "1px solid #e2e8f0",
+  },
+  candidateTitle: {
+    fontSize: 18,
+    fontWeight: 700,
+    marginBottom: 12,
+  },
+  candidateList: {
+    display: "grid",
+    gap: 10,
+  },
+  candidateItem: {
+    border: "1px solid #e2e8f0",
+    borderRadius: 14,
+    padding: 14,
+    background: "#f8fafc",
     fontSize: 16,
   },
 };
